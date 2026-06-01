@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FLICK — Movie Explorer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ══════════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════════ -->
+    <header class="nav" id="nav">
+      <div class="nav__inner">
+        <a href="#" class="nav__logo">FLICK</a>
+
+        <nav class="nav__links" id="navLinks">
+          <a href="#hero" class="nav__link">Home</a>
+          <a href="#trending" class="nav__link">Trending</a>
+          <a href="#discover" class="nav__link">Search</a>
+          <a href="#watchlater" class="nav__link">Watch Later</a>
+          <a href="#favs" class="nav__link">Favourites</a>
+        </nav>
+
+        <div class="nav__actions">
+          <button
+            class="btn-icon"
+            id="themeBtn"
+            title="Toggle theme"
+            aria-label="Toggle theme"
+          >
+            <span id="themeIcon">☀</span>
+          </button>
+          <button
+            class="btn-icon nav__burger"
+            id="burger"
+            aria-label="Menu"
+            aria-expanded="false"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile drawer -->
+      <div class="nav__drawer" id="drawer" aria-hidden="true">
+        <a href="#hero" class="drawer__link">Home</a>
+        <a href="#trending" class="drawer__link">Trending</a>
+        <a href="#discover" class="drawer__link">Search</a>
+        <a href="#watchlater" class="drawer__link">Watch Later</a>
+        <a href="#favs" class="drawer__link">Favourites</a>
+      </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════
+       HERO — full-height, poster showcase only
+  ══════════════════════════════════════════ -->
+    <section class="hero" id="hero">
+      <!-- Left: text only -->
+      <div class="hero__left">
+        <p class="hero__kicker">Your Cinema Universe</p>
+        <h1 class="hero__headline">Every<br /><em>great</em><br />film.</h1>
+        <p class="hero__sub">
+          Search millions of titles, track what you love, and discover your next
+          obsession.
+        </p>
+
+        <a href="#discover" class="hero__cta">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          Browse Movies
+        </a>
+      </div>
+
+      <!-- Right: stacked poster showcase (filled by JS) -->
+      <div class="hero__posters" id="heroPoster" aria-hidden="true">
+        <!-- 3 poster cards injected by JS -->
+      </div>
+
+      <!-- Decorative grain overlay -->
+      <div class="hero__grain" aria-hidden="true"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+       TRENDING CAROUSEL
+  ══════════════════════════════════════════ -->
+    <section class="section" id="trending">
+      <div class="section__head">
+        <h2 class="section__title">Trending</h2>
+        <div class="carousel__nav">
+          <button class="c-btn" id="cPrev" aria-label="Previous">
+            &#8592;
+          </button>
+          <button class="c-btn" id="cNext" aria-label="Next">&#8594;</button>
+        </div>
+      </div>
+
+      <div
+        class="carousel"
+        id="carousel"
+        role="region"
+        aria-label="Trending movies carousel"
+      >
+        <div class="carousel__track" id="carouselTrack"></div>
+      </div>
+      <div class="carousel__dots" id="carouselDots" role="tablist"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+       SEARCH / DISCOVER
+  ══════════════════════════════════════════ -->
+    <section class="section" id="discover">
+      <div class="section__head">
+        <h2 class="section__title">Discover</h2>
+      </div>
+
+      <div class="search-bar" id="searchBar">
+        <svg
+          class="search-bar__icon"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        >
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input
+          class="search-bar__input"
+          id="searchInput"
+          type="text"
+          placeholder="Title, director, genre…"
+          autocomplete="off"
+          aria-label="Search movies"
+        />
+        <button
+          class="search-bar__clear"
+          id="searchClear"
+          aria-label="Clear"
+          hidden
+        >
+          ✕
+        </button>
+        <button class="search-bar__go" id="searchGo">Search</button>
+      </div>
+
+      <!-- Status line -->
+      <p
+        class="status-line"
+        id="statusLine"
+        role="status"
+        aria-live="polite"
+      ></p>
+
+      <!-- Skeleton grid (shown while loading) -->
+      <div
+        class="grid skeleton-grid"
+        id="skeletonGrid"
+        hidden
+        aria-hidden="true"
+      >
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+
+      <!-- Results grid -->
+      <div class="grid" id="resultsGrid" aria-label="Search results"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+       WATCH LATER
+  ══════════════════════════════════════════ -->
+    <section class="section" id="watchlater">
+      <div class="section__head">
+        <h2 class="section__title">Watch Later</h2>
+        <button class="clear-list-btn" id="clearWatchLater" hidden>
+          Clear all
+        </button>
+      </div>
+      <div class="grid" id="watchLaterGrid" aria-label="Watch Later"></div>
+      <p class="empty-state" id="watchLaterEmpty">
+        Nothing queued up — tap 🕐 on any card to save for later.
+      </p>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+       FAVOURITES
+  ══════════════════════════════════════════ -->
+    <section class="section" id="favs">
+      <div class="section__head">
+        <h2 class="section__title">Favourites</h2>
+      </div>
+      <div class="grid" id="favsGrid" aria-label="Favourites"></div>
+      <p class="empty-state" id="favsEmpty">
+        No favourites yet — tap ♥ on any card.
+      </p>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+       MODAL
+  ══════════════════════════════════════════ -->
+    <div
+      class="modal-backdrop"
+      id="modalBackdrop"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-label="Movie details"
+    >
+      <article class="modal" id="modal">
+        <button class="modal__close" id="modalClose" aria-label="Close">
+          ✕
+        </button>
+        <div class="modal__body" id="modalBody"></div>
+      </article>
+    </div>
+
+    <!-- Back to top -->
+    <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span
+        ><p style="color: var(--accent); display: inline">FLICK</p>
+        © 2025</span
+      >
+      <span
+        >Powered by
+        <a href="https://www.omdbapi.com" target="_blank" rel="noopener"
+          >OMDb API</a
+        ></span
+      >
+      <span
+        >Made by
+        <p style="color: var(--accent); display: inline">Debanshu</p></span
+      >
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
