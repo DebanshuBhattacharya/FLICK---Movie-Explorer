@@ -61,6 +61,35 @@ A modern and responsive movie discovery web application built with **HTML, CSS, 
 * OMDb API
 * LocalStorage
 
+🚀 Future Enhancements
+
+The following features are planned for future updates:
+
+User Experience 
+- Toast notifications for actions (favorites added/removed, errors, etc.)
+- Smooth page transitions and animations
+- Improved loading skeletons and shimmer effects
+- Keyboard shortcuts for navigation
+- Accessibility improvements (ARIA labels, keyboard navigation)
+
+Search & Discovery
+-  Advanced search filters (Year, Genre, Rating, Language)
+-  Search suggestions/autocomplete
+-  Sort results by rating, popularity, or release date
+-  Search history management
+-  Voice search support
+
+Movie Information
+-  Movie trailers integration
+-  Watch provider/streaming platform information
+
+Personalization
+-  User accounts and cloud-synced favorites
+-  Custom watchlists
+-  Recently viewed movies
+-  Personalized recommendations
+
+
 
 Note: This project uses a free OMDb API key for demonstration purposes.
 For production applications, API requests should be routed through a secure backend.
